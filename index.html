@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fogueteiro</title>
+    <link rel="stylesheet"  href="style.css">
+
+</head>
+<body>
+    <img id="fofo" src="foguete.gif" width="80px" class="fogueteiro">
+</body>
+
+<script src="jquery-3.7.0.min.js"></script>
+<script>
+
+    //Vamos pegar o tempo inicial
+
+
+    d = new Date()
+    tempo_inicial = d.getTime();
+
+    temporizador = setTimeout(Subir,1000)
+    x = 800
+    y = 100
+    ESQUERDA = ""
+    TOPO = ""
+    function Subir()
+    {
+        ESQUERDA = x + "px"
+        TOPO = y + "px"
+        $("#fofo").animate({left:ESQUERDA ,top:TOPO},2000)
+
+        temporizador = null // Cancela a animação Suibir
+        temporizador = setInterval(Descer,2000)
+    }
+
+    function Descer()
+    {
+        y = y + 600
+        if(y>600)
+        {
+            y = 800
+        }
+        TOPO = y + "px"
+        $("#fofo").animate({left:ESQUERDA , top:TOPO},5000)
+    }
+
+    document.onkeydown = Pega_Tecla;
+
+    function Pega_Tecla(e) 
+    {	
+        e = e || window.event;
+
+        tecla = e.keyCode;
+        console.log(tecla); // MOSTRA O CÓDIGO DA TECLA PRESSIONADA
+        
+        d2 = new Date()
+        tempo_final = d.getTime();
+        if(tempo_final-tempo_inicial>5000)
+        {
+            tempo_inicial = tempo_final
+        }
+
+            if(tecla ==37)
+            {
+                $("#fofo").stop()
+                x = x - 20
+                ESQUERDA = x + "px"
+                Descer()
+            }
+
+            if(tecla ==39)
+            {
+                $("#fofo").stop()
+                x = x + 20
+                ESQUERDA = x + "px"
+                Descer()
+            }
+
+    }
+</script>
+
+</html>
